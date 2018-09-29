@@ -80,8 +80,11 @@ public class ImageMatrixGUI extends Observable {
 
 	private ImageMatrixGUI() {
 		SQUARE_SIZE = 50;
-		N_SQUARES_WIDTH = 10;
-		N_SQUARES_HEIGHT = 10;
+		//alterado
+		//N_SQUARES_WIDTH = 10;
+		//N_SQUARES_HEIGHT = 10;
+		N_SQUARES_WIDTH = 15;
+		N_SQUARES_HEIGHT = 15;
 		init();
 	}
 

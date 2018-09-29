@@ -13,9 +13,15 @@ public class Fireman extends FireFightSupport {
 	
 	public Fireman(Point position) {
 		super(position);
+		/*alterado
 		if(position.getX() < 0 || position.getX() > 10)
 			throw new IllegalArgumentException("O valor da posição do Fireman no eixo dos x não é válido!");
 		if(position.getY() < 0 || position.getY() > 10)
+			throw new IllegalArgumentException("O valor da posição do Fireman no eixo dos y não é válido!");
+		*/
+		if(position.getX() < 0 || position.getX() > 15)
+			throw new IllegalArgumentException("O valor da posição do Fireman no eixo dos x não é válido!");
+		if(position.getY() < 0 || position.getY() > 15)
 			throw new IllegalArgumentException("O valor da posição do Fireman no eixo dos y não é válido!");
 	}
 	

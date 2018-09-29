@@ -175,7 +175,9 @@ public class FireSimulator implements Observer {
 
 	private void createColumns () {
 		int counter = 0;
-		while(counter < 10) {
+		//alterado
+		//while(counter < 10) {
+		while(counter < 15) {
 		Set<Point> temp = new HashSet<>();
 			for(Point p : allPositions) {
 				if(p.getX() == counter) {
@@ -204,7 +206,9 @@ public class FireSimulator implements Observer {
 		int numFire = 0;
 		int biggest = 0;
 		int counter = 0;
-		while(counter < 10) {
+		//alterado
+		//while(counter < 10) {
+		while(counter < 15) {
 			if(countFireInColumnX(counter) > numFire) {
 				numFire = countFireInColumnX(counter);
 				biggest = counter;
