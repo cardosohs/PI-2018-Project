@@ -4,9 +4,10 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import pt.iul.ista.poo.gui.ImageMatrixGUI;
-import pt.iul.ista.poo.gui.ImageTile;
-import pt.iul.ista.poo.utils.Direction;
+
+import pt.iul.poo.firefight.gui.ImageMatrixGUI;
+import pt.iul.poo.firefight.gui.ImageTile;
+import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.main.FireSimulator;
 import pt.iul.poo.firefight.objects.Bulldozer;
 import pt.iul.poo.firefight.objects.Eucaliptus;

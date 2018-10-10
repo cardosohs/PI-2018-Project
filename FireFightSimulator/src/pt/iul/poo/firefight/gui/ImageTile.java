@@ -1,4 +1,4 @@
-package pt.iul.ista.poo.gui;
+package pt.iul.poo.firefight.gui;
 
 import java.awt.Point;
 

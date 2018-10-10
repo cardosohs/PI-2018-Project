@@ -1,7 +1,8 @@
 package pt.iul.poo.firefight.objects;
 
 import java.awt.Point;
-import pt.iul.ista.poo.utils.Direction;
+
+import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.main.FireSimulator;
 import pt.iul.poo.firefight.objects.Bulldozer;
 import pt.iul.poo.firefight.tools.*;

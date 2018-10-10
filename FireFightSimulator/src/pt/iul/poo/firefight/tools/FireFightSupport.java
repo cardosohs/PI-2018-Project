@@ -3,8 +3,9 @@ package pt.iul.poo.firefight.tools;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import pt.iul.ista.poo.gui.ImageMatrixGUI;
-import pt.iul.ista.poo.utils.Direction;
+
+import pt.iul.poo.firefight.gui.ImageMatrixGUI;
+import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.objects.Burnt;
 import pt.iul.poo.firefight.objects.Fire;
 

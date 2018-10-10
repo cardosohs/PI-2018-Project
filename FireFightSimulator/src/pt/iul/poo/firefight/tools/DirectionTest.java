@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import pt.iul.ista.poo.utils.Direction;
+import pt.iul.poo.firefight.gui.utils.Direction;
 
 class DirectionTest {
 	

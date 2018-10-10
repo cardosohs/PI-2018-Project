@@ -1,4 +1,4 @@
-package pt.iul.ista.poo.utils;
+package pt.iul.poo.firefight.gui.utils;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;

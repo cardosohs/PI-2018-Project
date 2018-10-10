@@ -1,6 +1,9 @@
 package pt.iul.poo.firefight.objects;
 
 import java.awt.Point;
+
+import pt.iul.poo.firefight.gui.ImageMatrixGUI;
+import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.main.FireSimulator;
 import pt.iul.poo.firefight.tools.FireFightObject;
 import pt.iul.poo.firefight.tools.FireFightSupport;
@@ -8,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import pt.iul.ista.poo.gui.ImageMatrixGUI;
-import pt.iul.ista.poo.utils.Direction;
+
 import pt.iul.poo.firefight.objects.Burnt;
 import pt.iul.poo.firefight.objects.Fire;
 import pt.iul.poo.firefight.objects.Plane;
