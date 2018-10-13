@@ -85,8 +85,9 @@ public class FireFightObject implements ImageTile{
 		switch (n) {
 			case "Bulldozer": return new Bulldozer(new Point (x,y));
 			case "Fireman": return new Fireman(new Point (x,y));
-			case "Fire": return new Fire(new Point (x,y));
+			case "Fire": return new Fire(new Point (x,y));			
 		}
+		
 		return null;
 	}
 	
