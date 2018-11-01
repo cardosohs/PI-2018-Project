@@ -45,8 +45,23 @@ public class Fireman extends FireFightSupport {
 	
 	
 	private void putOutFire(Point p) {
+		
 		Fire fire = Fire.getFireFromMainList(p);
 		FireSimulator.getInstance().getAllObjects().remove(fire);
+		
+		//alteração para terminar o jogo... é somente uma prova de conceito e deverá ser melhorado
+		int count = 0;
+		for(FireFightObject obj : FireSimulator.getInstance().getAllObjects()) {
+			if(obj instanceof Fire) {
+				count+=1;
+			}
+		}
+		if(count == 0) {
+			System.out.println("ganhou");
+			System.exit(0);
+		}	
+			
+			
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
@@ -19,6 +20,7 @@ import pt.iul.poo.firefight.gui.ImageTile;
 import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.objects.*;
 import pt.iul.poo.firefight.tools.FireFightObject;
+import pt.iul.poo.firefight.tools.Forest;
 
 
 public class FireSimulator implements Observer {
@@ -90,9 +92,11 @@ public class FireSimulator implements Observer {
 						x = Integer.parseInt(temp[2]);
 						y = Integer.parseInt(temp[3]);
 						allObjects.add(FireFightObject.stringToObject(x, y, cName));
+						
 					}
 				countLines++;
 			}
+			createRandomFires(3);
 		sc.close();
 		
 		try {
@@ -103,6 +107,26 @@ public class FireSimulator implements Observer {
 			System.out.println("O Fireman não foi inicializado! Será criado um Fireman na posição (5,3)");
 			allObjects.add(new Fireman(new Point(5,3)));
 		}
+		
+	}
+	
+	//criar random fires código mais linha no ler ficheiro
+	public void createRandomFires(int n) {
+		
+		List<Point> psss = new ArrayList<>();
+		for(FireFightObject obj : getAllObjects()) {
+			if(obj instanceof Forest) { 
+				psss.add(obj.getPosition());
+			}	
+		}
+		
+		Collections.shuffle(psss);
+		List<Point> burnVictim = psss.subList(0, n);
+		System.out.println(burnVictim.toString());
+		for(Point p : burnVictim) {			
+			allObjects.add(new Fire(p));
+		}
+			
 	}
 	
 	
