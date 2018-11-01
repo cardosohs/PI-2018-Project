@@ -1,4 +1,5 @@
 Algumas ideias:
+>bombeiro inicia no meio do mapa
 1» Ligar a densidade ao "burning time"
 2» faze score com o número de arvores queimadas (devresce a cada tile queimada)
 3» ter um timer externo para obter valores esperados da temperatura e humidade
