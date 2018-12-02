@@ -12,12 +12,16 @@ public class Forest extends FireFightObject{
 
 	protected double probCatchFire;
 	protected int burningPeriod;
+	protected double density;
 	
 	
-	public Forest (Point position, int burningPeriod, double probCatchFire) {
+	
+
+	public Forest (Point position, int burningPeriod, double probCatchFire, double density) {
 		super(position);
 		this.burningPeriod = burningPeriod;
 		this.probCatchFire = probCatchFire;
+		this.density = density;
 	}
 	
 	
@@ -37,11 +41,14 @@ public class Forest extends FireFightObject{
 	}
 	
 	
-	
+	//TRATAR DAS ALEATORIAS
 	public boolean mayCatchFire() {
 		Random rdm = new Random();
 		Double randomDb = rdm.nextDouble();
-		if (probCatchFire > randomDb && !isBurnt() && !isOnFire()) {
+//		FireSimulator.temperaturaAtual
+//		FireSimulator.humidadeAtual
+		
+		if ((probCatchFire*(1/FireSimulator.humidadeAtual)) > randomDb && !isBurnt() && !isOnFire()) {
 			return true;
 		}
 		return false;
@@ -79,4 +86,13 @@ public class Forest extends FireFightObject{
 		return temp;
 	}
 	
+	public double getDensity() {
+		return density;
+	}
+
+
+	public void setDensity(double density) {
+		this.density = density;
+	}
+
 }

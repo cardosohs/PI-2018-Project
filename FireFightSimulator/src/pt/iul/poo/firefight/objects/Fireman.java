@@ -4,12 +4,15 @@ import java.awt.Point;
 
 import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.main.FireSimulator;
+import pt.iul.poo.firefight.main.GerarValores;
 import pt.iul.poo.firefight.tools.FireFightObject;
 import pt.iul.poo.firefight.tools.FireFightSupport;
+import pt.iul.poo.firefight.tools.Forest;
 
 
 public class Fireman extends FireFightSupport {
 	
+	public static double waterPower=0;
 	
 	public Fireman(Point position) {
 		super(position);
@@ -39,7 +42,10 @@ public class Fireman extends FireFightSupport {
 				super.layer += 2;
 			}
 				if (isPositionOnFire(whereIllBe)) {
-					putOutFire(whereIllBe);
+					setWaterPower();
+					if(Forest.getForestFromMainList(whereIllBe).getDensity()<=0)
+						putOutFire(whereIllBe);
+					Forest.getForestFromMainList(whereIllBe).setDensity(Forest.getForestFromMainList(whereIllBe).getDensity()-getWaterPower());
 				}
 	}
 	
@@ -87,6 +93,16 @@ public class Fireman extends FireFightSupport {
 			}
 		}
 		return temp;
+	}
+
+
+	public static double getWaterPower() {
+		return waterPower;
+	}
+
+
+	public void setWaterPower() {
+		this.waterPower = GerarValores.geraDensidade();
 	}
 	
 }

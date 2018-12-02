@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import pt.iul.poo.firefight.gui.utils.Direction;
 import pt.iul.poo.firefight.objects.*;
 import pt.iul.poo.firefight.tools.FireFightObject;
 import pt.iul.poo.firefight.tools.Forest;
+import pt.iul.poo.firefight.main.GerarValores;
 
 
 public class FireSimulator implements Observer {
@@ -32,10 +34,16 @@ public class FireSimulator implements Observer {
 	private Set<Point> allPositions = new HashSet<>();
 	private Vector<Set<Point>> allColumns = new Stack<>();
 	private static FireSimulator INSTANCE = null;
-
+	private Point posicaoInicial = new Point(0, 0);
+	private Point posicaoSeguinte = new Point(0, 0);
+	public static double temperaturaAtual = 44.0;
+	public static double humidadeAtual = 0.5;
+	public static int ventoAtual = 0;
 	
 	private FireSimulator() { 
 		try {
+			gameBar();
+			writeMap(CONFIG_DIR + "/" + CONFIG_FILE);
 			readMap(CONFIG_DIR + "/" + CONFIG_FILE);
 			storeAllPositions();
 			createColumns();
@@ -48,6 +56,47 @@ public class FireSimulator implements Observer {
 	}
 	
 	
+	private void writeMap(String fName) {
+		int flag = 0;
+		int veg = 0;
+		String str = "";
+		for(int x = 0; x < 15 ; x++) {
+			for(int y = 0; y < 15; y++) {
+				veg=GerarValores.distibuicao();
+				switch (veg) {
+	            case 0:  
+	            	str = str.concat(".");
+	            	if(flag == 0) {
+	            		posicaoInicial.setLocation(y, x);
+	            	}if(flag==1) {
+	            		posicaoSeguinte.setLocation(y, x);
+	            	}
+	            	flag++;
+	                break;
+	            case 1:
+	            	str = str.concat("_");
+	                break;
+	            case 2:
+	            	str = str.concat("e");
+	                break;
+	            case 3:  
+	            	str = str.concat("p");
+				}	
+			}
+			try {
+				PrintWriter out = new PrintWriter(fName);
+				out.println(str);
+				out.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("Erro ao criar o mapa");
+			}
+			str = str.concat(System.lineSeparator());
+		}
+		
+		
+	}
+
+
 	public static FireSimulator getInstance() {
 		if (INSTANCE == null) { 
 			INSTANCE = new FireSimulator();
@@ -76,23 +125,15 @@ public class FireSimulator implements Observer {
 		List<String> names = new ArrayList<>();
 			
 			int countLines = 0;
-			String cName = "";
-			int x = -1;
-			int y = -1;
+			//String cName = "";
+//			int x = -1;
+//			int y = -1;
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 					if(line.charAt(0) != '#') {
 						for(int i = 0; i != line.length(); i++) {
 							allObjects.add(FireFightObject.charToObject(i, countLines, line.charAt(i)));
 						}
-					}else{
-						String [] temp = line.split(" ");
-						cName = temp[1];
-						names.add(cName);
-						x = Integer.parseInt(temp[2]);
-						y = Integer.parseInt(temp[3]);
-						allObjects.add(FireFightObject.stringToObject(x, y, cName));
-						
 					}
 				countLines++;
 			}
@@ -104,8 +145,8 @@ public class FireSimulator implements Observer {
 			checkIfFiremanIsOnMap(names);
 		
 		} catch (IllegalStateException f) {
-			System.out.println("O Fireman não foi inicializado! Será criado um Fireman na posição (5,3)");
-			allObjects.add(new Fireman(new Point(5,3)));
+			allObjects.add(new Fireman(posicaoInicial));
+			allObjects.add(new Bulldozer(posicaoSeguinte));
 		}
 		
 	}
@@ -122,7 +163,7 @@ public class FireSimulator implements Observer {
 		
 		Collections.shuffle(psss);
 		List<Point> burnVictim = psss.subList(0, n);
-		System.out.println(burnVictim.toString());
+		//System.out.println(burnVictim.toString());
 		for(Point p : burnVictim) {			
 			allObjects.add(new Fire(p));
 		}
@@ -165,7 +206,7 @@ public class FireSimulator implements Observer {
 			if (key == KeyEvent.VK_A) {
 				Fireman.callPlane();
 			}
-			
+		atualizarCondicoes();
 		Fire.spreadAllFires();
 		Fire.incrementCounter();
 		Burnt.consumeAll();
@@ -173,6 +214,13 @@ public class FireSimulator implements Observer {
 	}
 	
 	
+	private void atualizarCondicoes() {
+		FireSimulator.ventoAtual = GerarValores.geraVento();
+		FireSimulator.humidadeAtual = GerarValores.geraHumidade(0.2, 0.8, humidadeAtual);
+		FireSimulator.temperaturaAtual = temperaturaAtual+GerarValores.geraTemperatura(0.25);
+	}
+
+
 	private List<ImageTile> convertList (List<FireFightObject> list){
 		List<ImageTile> result = new ArrayList<>();
 			for(FireFightObject f : list) {
@@ -188,6 +236,7 @@ public class FireSimulator implements Observer {
 		ImageMatrixGUI.getInstance().clearImages();
 		ImageMatrixGUI.getInstance().addImages(convertList(allObjects));
 		ImageMatrixGUI.getInstance().update();
+		gameBar();
 	}
 
 	
@@ -243,5 +292,25 @@ public class FireSimulator implements Observer {
 		return biggest;
 	}
 	
+	public void gameBar() {
+		ImageMatrixGUI.getInstance().update();
+		ImageMatrixGUI.getInstance().setStatusMessage("Direção do Vento: " + dirVento() + " | Temperatura: " 
+				+ String.format("%.2f",FireSimulator.temperaturaAtual) + " | Humidade do Ar: " + String.format("%.2f",FireSimulator.humidadeAtual)
+				+ " | Water Power: " + String.format("%.1f",Fireman.getWaterPower()));
+	}
 	
+	public String dirVento() {
+		int vento = FireSimulator.ventoAtual;
+		switch(vento){		
+		case 0:
+			return "Norte";
+		case 1:
+			return "Este";
+		case 2:
+			return "Sul";
+		case 3:
+			return "Oeste";
+		}
+		return null;
+	}
 }

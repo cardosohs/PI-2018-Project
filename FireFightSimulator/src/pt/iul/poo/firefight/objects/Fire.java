@@ -1,4 +1,5 @@
 package pt.iul.poo.firefight.objects;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,21 +8,18 @@ import pt.iul.poo.firefight.tools.FireFightObject;
 import pt.iul.poo.firefight.tools.Forest;
 
 public class Fire extends FireFightObject {
-	
-	
+
 	private int counter = 0;
-	
-	
-	public Fire (Point position) {
+
+	public Fire(Point position) {
 		super(position);
 	}
-	
-	
+
 	@Override
 	public int getLayer() {
 		return 4;
 	}
-	
+
 	public int getCounter() {
 		return counter;
 	}
@@ -29,47 +27,72 @@ public class Fire extends FireFightObject {
 	public void setCounter(int counter) {
 		this.counter = counter;
 	}
-	
-	
+
 	public static void spreadAllFires() {
 		List<FireFightObject> temp = new ArrayList<FireFightObject>(FireSimulator.getInstance().getAllObjects());
 		for (FireFightObject f : temp) {
 			if (f instanceof Fire) {
-				 ((Fire)f).spread();
+				((Fire) f).spread();
 			}
 		}
 	}
-	
-	
+
+	// ADICIONAR ALEATORIAS
 	private void spread() {
-		List <Point> pontos = this.getSurroundingTilesPosition();
-		for (Point p : pontos) {
-			FireFightObject obj = FireFightObject.getTileFromMainList(p);
-			if(obj instanceof Forest) {
-				if(((Forest)obj).mayCatchFire()){
-					FireSimulator.getInstance().getAllObjects().add(new Fire (new Point (obj.getPosition())));
-				}
+//		List <Point> pontos = this.getSurroundingTilesPosition();
+//		//List<Point> dirVento = this.florestaDirVento();
+//		for (Point p : pontos) {
+		FireFightObject obj = FireFightObject.getTileFromMainList(florestaDirVento());
+		if (obj instanceof Forest) {
+			if (((Forest) obj).mayCatchFire()) {
+				FireSimulator.getInstance().getAllObjects().add(new Fire(new Point(obj.getPosition())));
 			}
 		}
 	}
-	
-	
-	public static void incrementCounter(){
+
+	private Point florestaDirVento() {
+		// verfica qual destes é que está na direcção do vento
+		Point coordenadaAfetada = getCoordenadaDirVento();
+		Point posicao = getPosition();
+		return new Point(coordenadaAfetada.x + posicao.x, coordenadaAfetada.y + posicao.y);
+
+	}
+
+	private Point getCoordenadaDirVento() {
+		int vento = FireSimulator.ventoAtual;
+		switch (vento) {
+		case 0:
+			Point norte = new Point(0, -1);
+			return norte;
+		case 1:
+			Point este = new Point(1, 0);
+			return este;
+		case 2:
+			Point sul = new Point(0, 1);
+			return sul;
+		case 3:
+			Point oeste = new Point(-1, 0);
+			return oeste;
+		}
+		return null;
+
+	}
+
+	public static void incrementCounter() {
 		for (FireFightObject f : FireSimulator.getInstance().getAllObjects())
 			if (f instanceof Fire)
-				((Fire)f).setCounter(((Fire)f).getCounter() + 1);
+				((Fire) f).setCounter(((Fire) f).getCounter() + 1);
 	}
-	
-	
+
 	public static Fire getFireFromMainList(Point position) {
 		Fire temp = null;
 		for (FireFightObject f : FireSimulator.getInstance().getAllObjects()) {
 			if (f.getPosition().equals(position)) {
 				if (f instanceof Fire)
-					temp = (Fire)f;
+					temp = (Fire) f;
 			}
 		}
 		return temp;
 	}
-	
+
 }

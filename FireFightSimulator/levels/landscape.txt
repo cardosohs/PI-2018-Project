@@ -1,19 +1,15 @@
-ppppp__________
-pppp...________
-ppp....__pppppp
-ee.......pppppp
-e..............
-eee............
-eeeee..........
-eeee__.........
-eeeee__........
-eeeee__________
-ppppp__________
-pppp...________
-ppp....__pppppp
-ee.......pppppp
-e..............
-# Fire 1 2
-# Fire 1 3
-# Fireman 5 3
-# Bulldozer 5 5
+_._p_e.e.p...__
+__.e._e_.__..__
+__ep_e_eppee___
+.....e_e._p.__.
+__pe__e____.ee.
+..e.__.___e_._.
+___pe_...__e...
+._ee_ee_ee.pee_
+_._pp._..__p_e.
+p._p._e._p.p.__
+.e_ep___e_p._._
+...p_..e._epeee
+_.._._.e.____p_
+ee..____p_e.e.p
+p___...__p.epee
