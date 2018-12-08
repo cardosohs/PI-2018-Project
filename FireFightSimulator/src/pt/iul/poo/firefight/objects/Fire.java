@@ -9,7 +9,7 @@ import pt.iul.poo.firefight.tools.Forest;
 
 public class Fire extends FireFightObject {
 
-	private int counter = 0;
+	private double counter = 0;
 
 	public Fire(Point position) {
 		super(position);
@@ -20,11 +20,11 @@ public class Fire extends FireFightObject {
 		return 4;
 	}
 
-	public int getCounter() {
+	public double getCounter() {
 		return counter;
 	}
 
-	public void setCounter(int counter) {
+	public void setCounter(double counter) {
 		this.counter = counter;
 	}
 
@@ -80,8 +80,10 @@ public class Fire extends FireFightObject {
 
 	public static void incrementCounter() {
 		for (FireFightObject f : FireSimulator.getInstance().getAllObjects())
-			if (f instanceof Fire)
-				((Fire) f).setCounter(((Fire) f).getCounter() + 1);
+			if (f instanceof Fire) {
+				((Fire) f).setCounter(((Fire) f).getCounter() + (FireSimulator.temperaturaAtual/44));
+				System.out.println(((Fire) f).getPosition() + "tem counter a "+ ((Fire) f).getCounter() + "variou "+(FireSimulator.temperaturaAtual/44)+" graus");
+			}
 	}
 
 	public static Fire getFireFromMainList(Point position) {

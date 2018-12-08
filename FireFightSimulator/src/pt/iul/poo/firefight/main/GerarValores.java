@@ -5,6 +5,7 @@ public class GerarValores {
 	public static void main(String[] args) {
 		int i = 0;
 		double humidadeAtual=0.50;
+		double temperaturaAtual=44;
 		while (i < 10000) {
 			// 1ºVariavel
 //			cartesianaCoord p = bivariateNormal(10,9,10,9);
@@ -14,6 +15,12 @@ public class GerarValores {
 			// 2ºVariavel
 			// System.out.println(lognormal(0.25));
 			//System.out.println(temp(44.0));
+			//System.out.println(normal(44,4)); //temperatura inicial
+//			System.out.println(normal(0,1));
+			temperaturaAtual=temperaturaAtual+normal(0,1);
+			temperaturaAtual= (temperaturaAtual>50)?50:temperaturaAtual;
+			temperaturaAtual= (temperaturaAtual<25)?25:temperaturaAtual;
+			System.out.println(temperaturaAtual);
 			
 			// 3ºVariavel
 			// System.out.println(natural3());
@@ -21,8 +28,8 @@ public class GerarValores {
 			// 4ºVariavel
 //			 System.out.println(geraHumidade(0.2, 0.8, 0.5));
 			
-			humidadeAtual=geraHumidade(0.2, 0.8, humidadeAtual);
-			 System.out.println(humidadeAtual);
+//			humidadeAtual=geraHumidade(0.2, 0.8, humidadeAtual);
+//			 System.out.println(humidadeAtual);
 
 			// 5ºVariavel
 			// System.out.println(exponencial());
@@ -54,15 +61,15 @@ public class GerarValores {
 
 
 	// Temperatura - Variavel Continua
+//
+//	public static double temp(double media) {	
+//		return media + Math.tan(Math.PI*(Math.random()-0.5));
+//	}
+//	public static double geraTemperatura(double sigma) {
+//		return Math.exp(normal(0.0, 0.25) * sigma);
+//	}
 
-	public static double temp(double media) {	
-		return media + Math.tan(Math.PI*(Math.random()-0.5));
-	}
-	public static double geraTemperatura(double sigma) {
-		return Math.exp(normal(0.0, 0.25) * sigma);
-	}
-
-	public static double normal(double mu, double sigma) {
+	public static double normal(double mu, double sigma) { //gera temperatura
 		assert (sigma > 0.);
 		double p, p1, p2;
 		do {
@@ -70,7 +77,11 @@ public class GerarValores {
 			p2 = Math.random() * 2 - 1;
 			p = p1 * p1 + p2 * p2;
 		} while (p >= 1.);
-		return mu + sigma * p1 * Math.sqrt(-2. * Math.log(p) / p);
+		double r =mu + sigma * p1 * Math.sqrt(-2. * Math.log(p) / p); //vamos truncar os resultados 
+		if (r>mu+3*sigma ||r<mu-3*sigma) { //se estiver a 3 desvios padrões da média
+			r = normal( mu,  sigma); // cria novo valor
+		}
+		return r;
 	}
 
 	// Direcao do Vento - Variavel Discreta

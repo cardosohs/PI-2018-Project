@@ -137,7 +137,7 @@ public class FireSimulator implements Observer {
 					}
 				countLines++;
 			}
-			createRandomFires(3);
+			createRandomFires(1);
 		sc.close();
 		
 		try {
@@ -217,7 +217,9 @@ public class FireSimulator implements Observer {
 	private void atualizarCondicoes() {
 		FireSimulator.ventoAtual = GerarValores.geraVento();
 		FireSimulator.humidadeAtual = GerarValores.geraHumidade(0.2, 0.8, humidadeAtual);
-		FireSimulator.temperaturaAtual = temperaturaAtual+GerarValores.geraTemperatura(0.25);
+		FireSimulator.temperaturaAtual = temperaturaAtual+GerarValores.normal(0,2);
+		temperaturaAtual= (temperaturaAtual>50)?50:temperaturaAtual;
+		temperaturaAtual= (temperaturaAtual<25)?25:temperaturaAtual;
 	}
 
 
