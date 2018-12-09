@@ -24,7 +24,7 @@ import pt.iul.poo.firefight.tools.FireFightObject;
 import pt.iul.poo.firefight.tools.Forest;
 import pt.iul.poo.firefight.main.GerarValores;
 
-
+//u
 public class FireSimulator implements Observer {
 	
 	private final int GUIWIDTH = ImageMatrixGUI.getInstance().getN_SQUARES_WIDTH();
