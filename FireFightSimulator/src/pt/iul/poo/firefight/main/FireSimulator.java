@@ -27,6 +27,8 @@ import pt.iul.poo.firefight.main.GerarValores;
 
 public class FireSimulator implements Observer {
 	
+	private final int GUIWIDTH = 25;
+	private final int GUIHEIGHT = 9;
 
 	private static final String CONFIG_DIR = "levels";
 	private static final String CONFIG_FILE = "landscape.txt";
@@ -60,8 +62,8 @@ public class FireSimulator implements Observer {
 		int flag = 0;
 		int veg = 0;
 		String str = "";
-		for(int x = 0; x < 15 ; x++) {
-			for(int y = 0; y < 15; y++) {
+		for(int x = 0; x < GUIHEIGHT ; x++) {
+			for(int y = 0; y < GUIWIDTH; y++) {
 				veg=GerarValores.distibuicao();
 				switch (veg) {
 	            case 0:  

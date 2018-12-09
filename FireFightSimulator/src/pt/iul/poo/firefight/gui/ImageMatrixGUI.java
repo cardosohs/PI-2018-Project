@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -59,6 +61,7 @@ public class ImageMatrixGUI extends Observable {
 	private final String IMAGE_DIR = "images";
 	private final int LABEL_HEIGHT = 20;
 	private final int SQUARE_SIZE;
+	
 	private final int N_SQUARES_WIDTH;
 	private final int N_SQUARES_HEIGHT;
 
@@ -83,8 +86,8 @@ public class ImageMatrixGUI extends Observable {
 		//alterado
 		//N_SQUARES_WIDTH = 10;
 		//N_SQUARES_HEIGHT = 10;
-		N_SQUARES_WIDTH = 15;
-		N_SQUARES_HEIGHT = 15;
+		N_SQUARES_WIDTH = 25;
+		N_SQUARES_HEIGHT = 9;
 		init();
 	}
 
@@ -121,6 +124,7 @@ public class ImageMatrixGUI extends Observable {
 		frame.add(info, BorderLayout.NORTH);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		centreWindow(frame);
 
 		initImages();
 
@@ -420,6 +424,13 @@ public class ImageMatrixGUI extends Observable {
 	 */
 	public Dimension getGridDimension() {
 		return new Dimension(N_SQUARES_WIDTH, N_SQUARES_HEIGHT);
+	}
+	
+	private void centreWindow(Window frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
 	}
 
 }
