@@ -433,4 +433,14 @@ public class ImageMatrixGUI extends Observable {
 	    frame.setLocation(x, y);
 	}
 
+	public int getN_SQUARES_WIDTH() {
+		return N_SQUARES_WIDTH;
+	}
+
+	public int getN_SQUARES_HEIGHT() {
+		return N_SQUARES_HEIGHT;
+	}
+	
+	
+
 }

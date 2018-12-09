@@ -27,8 +27,8 @@ import pt.iul.poo.firefight.main.GerarValores;
 
 public class FireSimulator implements Observer {
 	
-	private final int GUIWIDTH = 25;
-	private final int GUIHEIGHT = 9;
+	private final int GUIWIDTH = ImageMatrixGUI.getInstance().getN_SQUARES_WIDTH();
+	private final int GUIHEIGHT = ImageMatrixGUI.getInstance().getN_SQUARES_HEIGHT();
 
 	private static final String CONFIG_DIR = "levels";
 	private static final String CONFIG_FILE = "landscape.txt";
@@ -41,6 +41,14 @@ public class FireSimulator implements Observer {
 	public static double temperaturaAtual = 44.0;
 	public static double humidadeAtual = 0.5;
 	public static int ventoAtual = 0;
+	
+	
+	public static FireSimulator getInstance() {
+		if (INSTANCE == null) { 
+			INSTANCE = new FireSimulator();
+		}
+		return INSTANCE;
+	}
 	
 	private FireSimulator() { 
 		try {
@@ -97,15 +105,6 @@ public class FireSimulator implements Observer {
 		
 		
 	}
-
-
-	public static FireSimulator getInstance() {
-		if (INSTANCE == null) { 
-			INSTANCE = new FireSimulator();
-		}
-		return INSTANCE;
-	}
-
 	
 	public List<FireFightObject> getAllObjects(){
 		return allObjects;
@@ -317,4 +316,14 @@ public class FireSimulator implements Observer {
 		}
 		return null;
 	}
+
+	public int getGUIWIDTH() {
+		return GUIWIDTH;
+	}
+
+	public int getGUIHEIGHT() {
+		return GUIHEIGHT;
+	}
+	
+	
 }
