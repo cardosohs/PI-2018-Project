@@ -138,7 +138,7 @@ public class FireSimulator implements Observer {
 					}
 				countLines++;
 			}
-			createRandomFires(1);
+			createRandomFires(2);
 		sc.close();
 		
 		try {

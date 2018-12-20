@@ -82,7 +82,7 @@ public class Fire extends FireFightObject {
 		for (FireFightObject f : FireSimulator.getInstance().getAllObjects())
 			if (f instanceof Fire) {
 				((Fire) f).setCounter(((Fire) f).getCounter() + (FireSimulator.temperaturaAtual/44));
-				System.out.println(((Fire) f).getPosition() + "tem counter a "+ ((Fire) f).getCounter() + "variou "+(FireSimulator.temperaturaAtual/44)+" graus");
+				//System.out.println(((Fire) f).getPosition() + "tem counter a "+ ((Fire) f).getCounter() + "variou "+(FireSimulator.temperaturaAtual/44)+" graus");
 			}
 	}
 
